@@ -7,15 +7,15 @@
 <meta name="description" content="Freelance copywriter. Emails and ads that earn their spot in the inbox and the feed. Try a project risk-free." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Caveat:wght@500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F3EDE1;
-    --paper-warm:#EDE5D3;
+    --paper:#FAF6F0;
+    --paper-warm:#FFFFFF;
     --ink:#1C1A17;
     --ink-soft:#3A352E;
-    --muted:#7A7163;
-    --rule:#C9BFA8;
+    --muted:#8B8478;
+    --rule:#E7DFD3;
     --accent:#B54B2C;
     --accent-deep:#8A3A22;
   }
@@ -39,7 +39,7 @@
     position:fixed;inset:0;
     pointer-events:none;
     z-index:1;
-    opacity:.35;
+    opacity:.12;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .11  0 0 0 0 .1  0 0 0 0 .09  0 0 0 .07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     mix-blend-mode:multiply;
   }
@@ -85,7 +85,7 @@
   }
   .top-meta a:hover{color:var(--accent)}
 
-  
+
   /* ——— hero ——— */
   .hero{
     padding:80px 0 110px;
@@ -150,17 +150,6 @@
   .cta-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:28px}
   .cta-note{font-size:13px;color:var(--muted);max-width:18ch;line-height:1.35}
 
-  /* vertical side label */
-  .side-label{
-    position:absolute;
-    right:-2px;top:38%;
-    writing-mode:vertical-rl;
-    font-size:11px;letter-spacing:.3em;text-transform:uppercase;
-    color:var(--muted);
-    display:flex;align-items:center;gap:14px;
-  }
-  .side-label::after{content:"";width:1px;height:72px;background:var(--rule)}
-  @media (max-width:1100px){ .side-label{display:none} }
 
   /* ——— section frames ——— */
   section{padding:100px 0;position:relative}
@@ -179,6 +168,7 @@
     font-size:clamp(32px,4.5vw,56px);
     max-width:18ch;
   }
+  .section-title .ital{color:var(--accent)}
 
   /* ——— samples (pill layout) ——— */
   .sample-group{margin-bottom:64px}
@@ -392,15 +382,408 @@
   .r3{animation-delay:.45s}
   .r4{animation-delay:.65s}
   @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ═══════════════════ MANUSCRIPT / TRACK-CHANGES LAYER ═══════════════════ */
+
+  .mono{font-family:"Courier Prime",ui-monospace,"SF Mono",Menlo,monospace}
+  .hand{
+    font-family:"Caveat",cursive;
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  /* blinking cursor */
+  .caret{
+    display:inline-block;width:2px;height:.85em;background:var(--accent);
+    margin-left:2px;vertical-align:-2px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+  /* doc menu bar */
+  .doc-menubar{
+    border-bottom:1px solid var(--rule);
+    background:var(--paper-warm);
+  }
+  .doc-menubar .wrap{
+    display:flex;align-items:center;gap:22px;
+    padding:7px 28px;
+    font-family:"Courier Prime",monospace;
+    font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .doc-menubar span{opacity:.75}
+  .doc-menubar .sep{opacity:.35}
+
+  /* doc title row tweaks */
+  .doc-name{
+    font-family:"Courier Prime",monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    display:flex;align-items:center;gap:9px;
+  }
+  .suggesting-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:"Courier Prime",monospace;
+    font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent-deep);
+    background:rgba(181,75,44,.1);
+    border:1px solid rgba(181,75,44,.3);
+    padding:5px 11px 5px 9px;
+    border-radius:999px;
+  }
+  .suggesting-pill .rec-dot{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    animation:pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  /* redline edits in headline */
+  .redline{white-space:normal}
+  .redline del{
+    text-decoration:line-through;
+    text-decoration-color:var(--muted);
+    text-decoration-thickness:.06em;
+    color:var(--muted);
+    font-style:normal;
+    opacity:.55;
+  }
+  h1.redline del{
+    font-size:.5em;
+    vertical-align:.16em;
+  }
+  .redline .insert-wrap .avatar-chip{
+    margin-right:8px;
+    transform:translateY(-.5em);
+  }
+  .redline ins{
+    font-family:"Caveat",cursive;
+    font-weight:700;
+    text-decoration:none;
+    color:var(--accent);
+    position:relative;
+    padding:0 .06em;
+  }
+  .redline ins::after{
+    content:"";
+    position:absolute;left:-2%;right:-2%;bottom:.02em;height:.08em;
+    background:var(--accent);opacity:.55;
+  }
+  .redline .l{
+    display:inline-block;
+  }
+  @keyframes letterBounce{
+    0%,100%{transform:translateY(0)}
+    30%{transform:translateY(-.3em)}
+    55%{transform:translateY(.05em)}
+    75%{transform:translateY(-.1em)}
+  }
+  .redline:hover .l,
+  .redline.jump-active .l{
+    animation:letterBounce .6s cubic-bezier(.3,.7,.4,1.4);
+    animation-delay:calc(var(--i) * .032s);
+  }
+  .avatar-chip{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--accent);color:var(--paper);
+    font-family:"Courier Prime",monospace;
+    font-size:9px;font-weight:700;letter-spacing:0;
+    vertical-align:middle;
+    flex-shrink:0;
+  }
+
+  /* handwritten margin notes */
+  .margin-note{
+    font-family:"Caveat",cursive;
+    font-weight:600;
+    font-size:19px;
+    color:var(--accent-deep);
+    display:inline-block;
+    transform:rotate(-2.5deg);
+    line-height:1.15;
+  }
+  .margin-note .arrow{display:inline-block;transform:rotate(35deg);margin-right:4px}
+
+  /* squiggly underline, faux-spellcheck */
+  .squiggly{
+    text-decoration:none;
+    background-image:linear-gradient(to right, var(--accent) 0%, var(--accent) 50%, transparent 50%);
+    background-size:6px 2px;
+    background-repeat:repeat-x;
+    background-position:0 1.05em;
+    padding-bottom:2px;
+  }
+
+  /* comment-thread bubbles (testimonials) */
+  .quotes{border:none;display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  @media (max-width:720px){ .quotes{grid-template-columns:1fr} }
+  .quote{
+    border:1px solid var(--rule);
+    border-left:3px solid var(--accent);
+    border-radius:4px;
+    background:var(--paper-warm);
+    padding:30px 30px 26px;
+  }
+  .quote::before{content:none}
+  .quote-top{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .quote-who{display:flex;align-items:center;gap:10px}
+  .quote-who .avatar-chip{width:26px;height:26px;font-size:10px}
+  .quote-who .name{
+    font-family:"Courier Prime",monospace;
+    font-size:12px;letter-spacing:.04em;color:var(--ink-soft);
+  }
+  .resolved-tag{
+    font-family:"Courier Prime",monospace;
+    font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+    color:#5C7A54;
+    background:rgba(92,122,84,.12);
+    border:1px solid rgba(92,122,84,.3);
+    padding:3px 8px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:4px;
+  }
+  .quote p{
+    font-family:"Fraunces",serif;
+    font-variation-settings:"opsz" 144,"SOFT" 30;
+    font-size:19px;line-height:1.4;
+    color:var(--ink);
+    margin:0;
+  }
+  .quote cite{display:none}
+
+  /* status bar footer */
+  .status-bar{
+    font-family:"Courier Prime",monospace;
+    font-size:11.5px;letter-spacing:.03em;
+    color:var(--muted);
+    display:flex;align-items:center;gap:8px;
+    padding-bottom:18px;
+  }
+  .status-bar .rec-dot{
+    width:6px;height:6px;border-radius:50%;background:#5C7A54;flex-shrink:0;
+  }
+
+  /* work pills — dashed "inserted item" feel */
+  .pill{border-style:dashed}
+  .pill:hover{border-style:solid}
+
+  @media (max-width:560px){
+    .doc-name{display:none}
+    .doc-menubar .wrap{gap:14px}
+  }
+
+  /* ═══════════════════ ABOUT: stat card + timeline ═══════════════════ */
+  .about-side{margin-top:32px}
+  .stat-card{
+    background:var(--paper-warm);border:1px solid var(--rule);border-radius:8px;
+    padding:24px 26px;margin-bottom:26px;
+  }
+  .stat-num{
+    font-family:"Fraunces",serif;font-variation-settings:"opsz" 144,"SOFT" 30;
+    font-size:38px;color:var(--accent);line-height:1;margin-bottom:8px;
+  }
+  .stat-label{font-size:14px;color:var(--ink-soft);line-height:1.4}
+  .timeline .tl-item{
+    display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed var(--rule);
+  }
+  .timeline .tl-item:last-child{border-bottom:none}
+  .tl-when{
+    font-family:"Courier Prime",monospace;font-size:12px;color:var(--muted);
+    min-width:92px;padding-top:2px;
+  }
+  .tl-what strong{font-size:15px;font-weight:600;color:var(--ink)}
+  .tl-what span{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
+
+  /* ═══════════════════ PROCESS ═══════════════════ */
+  .process-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+  }
+  @media (max-width:980px){ .process-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:560px){ .process-grid{grid-template-columns:1fr} }
+
+  .process-card{
+    background:var(--paper-warm);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:26px 22px;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .25s ease;
+  }
+  .process-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 24px rgba(28,26,23,.08);
+    border-color:var(--accent);
+  }
+  .process-num{
+    font-family:"Courier Prime",monospace;
+    font-size:13px;letter-spacing:.05em;
+    color:var(--accent-deep);
+    margin-bottom:18px;
+  }
+  .process-title{
+    font-family:"Fraunces",serif;
+    font-variation-settings:"opsz" 144,"SOFT" 30;
+    font-size:20px;font-weight:500;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+  .process-desc{
+    font-size:14px;line-height:1.5;
+    color:var(--ink-soft);
+  }
+
+  /* ═══════════════════ FEATURED CASE STUDIES ═══════════════════ */
+  .case-card{
+    border:1px solid var(--rule);border-radius:6px;background:var(--paper-warm);
+    padding:34px 36px;margin-bottom:22px;
+  }
+  .case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .case-tag{
+    font-family:"Courier Prime",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent-deep);background:rgba(181,75,44,.1);border:1px solid rgba(181,75,44,.3);
+    padding:4px 10px;border-radius:999px;display:inline-block;margin-bottom:12px;
+  }
+  .case-title{font-family:"Fraunces",serif;font-variation-settings:"opsz" 144,"SOFT" 30;font-size:24px;margin-bottom:4px}
+  .case-meta{font-size:13.5px;color:var(--muted)}
+  .case-challenge{
+    font-size:15px;color:var(--ink-soft);margin:18px 0 20px;line-height:1.5;
+    padding-left:16px;border-left:2px solid var(--accent);
+  }
+  .case-challenge b{color:var(--ink);font-weight:600}
+  .case-excerpt{
+    background:var(--paper);border:1px dashed var(--rule);border-radius:6px;
+    padding:22px 24px;
+  }
+  .case-excerpt .ex-label{
+    font-family:"Courier Prime",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:12px;
+  }
+  .case-excerpt .subj{font-weight:700;margin-bottom:3px;font-size:15px}
+  .case-excerpt .subj-alt{color:var(--muted);font-size:13px;margin-bottom:14px}
+  .case-excerpt p{font-size:15px;line-height:1.55;color:var(--ink);margin:0 0 12px}
+  .case-excerpt p:last-child{margin-bottom:0}
+  .case-excerpt em{font-family:"Fraunces",serif;font-style:italic}
+
+  .start-highlight{
+    color:var(--accent);
+    font-weight:700;
+  }
+
+  .section-head .browse-link{
+    font-family:"Courier Prime",monospace;font-size:13px;letter-spacing:.03em;
+    color:var(--accent-deep);white-space:nowrap;
+    border-bottom:1px dashed var(--accent-deep);padding-bottom:2px;
+  }
+  .section-head .browse-link:hover{color:var(--accent)}
+
+  .more-work-label{
+    font-family:"Courier Prime",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin:8px 0 26px;
+  }
+
+  /* ═══════════════════ FOLDER-TAB SIDE NAV ═══════════════════ */
+  .folder-nav{
+    position:fixed;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:60;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .folder-tab{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:36px;
+    height:108px;
+    background:var(--paper-warm);
+    border:1px solid var(--rule);
+    border-right:none;
+    border-radius:9px 0 0 9px;
+    box-shadow:-2px 2px 7px rgba(28,26,23,.06);
+    cursor:pointer;
+    text-decoration:none;
+    transform:translateX(0);
+    transition:transform .4s cubic-bezier(.2,.8,.2,1), background .3s ease, box-shadow .3s ease;
+  }
+  .folder-tab .flap{
+    position:absolute;
+    top:-9px;
+    left:9px;
+    width:17px;
+    height:11px;
+    background:var(--paper-warm);
+    border:1px solid var(--rule);
+    border-bottom:none;
+    clip-path:polygon(12% 100%, 0 0, 100% 0, 88% 100%);
+    transition:background .3s ease, border-color .3s ease;
+  }
+  .folder-tab .label{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-family:"Courier Prime",monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    transition:color .3s ease;
+    pointer-events:none;
+  }
+  @media (hover:hover){
+    .folder-tab:hover{
+      transform:translateX(-16px);
+      background:#fff;
+      box-shadow:-5px 5px 16px rgba(28,26,23,.12);
+    }
+    .folder-tab:hover .label{color:var(--accent-deep)}
+  }
+  .folder-tab:active{transform:translateX(-20px) scale(.98)}
+  .folder-tab.active{
+    transform:translateX(-11px);
+    background:#fff;
+    box-shadow:-4px 4px 14px rgba(28,26,23,.1);
+  }
+  .folder-tab.active .label{color:var(--accent-deep);font-weight:700}
+  .folder-tab.active .flap{background:var(--accent);border-color:var(--accent)}
+
+  @media (max-width:560px){
+    .folder-nav{gap:3px}
+    .folder-tab{width:26px;height:72px;border-radius:7px 0 0 7px}
+    .folder-tab .label{font-size:9.5px;letter-spacing:.1em}
+    .folder-tab .flap{width:13px;height:9px;left:6px;top:-7px}
+    @media (hover:hover){ .folder-tab:hover{transform:translateX(-10px)} }
+    .folder-tab.active{transform:translateX(-7px)}
+    .folder-tab:active{transform:translateX(-12px) scale(.98)}
+  }
 </style>
 </head>
 <body>
+
+<div class="doc-menubar">
+  <div class="wrap">
+    <span>File</span><span class="sep">·</span>
+    <span>Edit</span><span class="sep">·</span>
+    <span>Insert</span><span class="sep">·</span>
+    <span>Format</span><span class="sep">·</span>
+    <span>Tools</span>
+  </div>
+</div>
 
 <header class="top">
   <div class="wrap top-row">
     <a href="#" class="mark">Sage<span class="dot">.</span></a>
     <div class="top-meta">
-      <span>Freelance Copy · Open for work</span>
+      <span class="doc-name">sage_portfolio_final_v14.docx<span class="caret"></span></span>
+      <span class="suggesting-pill"><span class="rec-dot"></span>Suggesting</span>
     </div>
   </div>
 </header>
@@ -412,9 +795,10 @@
     <div class="wrap">
       <div class="eyebrow reveal r1">Portfolio · 2026</div>
 
-      <h1 class="headline display reveal r2">
-        Ads that <span class="ital underline">sell</span>,
-        <span class="line2">not just scroll.</span>
+      <h1 class="headline display reveal r2 redline">
+        <span class="l" style="--i:0">A</span><span class="l" style="--i:1">d</span><span class="l" style="--i:2">s</span> <span class="l" style="--i:3">t</span><span class="l" style="--i:4">h</span><span class="l" style="--i:5">a</span><span class="l" style="--i:6">t</span> <del>get liked</del>
+        <span class="line2 insert-wrap"><span class="avatar-chip">SN</span><ins><span class="l" style="--i:7">s</span><span class="l" style="--i:8">e</span><span class="l" style="--i:9">l</span><span class="l" style="--i:10">l</span></ins><span class="l" style="--i:11">,</span></span>
+        <span class="line2"><span class="l" style="--i:12">n</span><span class="l" style="--i:13">o</span><span class="l" style="--i:14">t</span> <span class="l" style="--i:15">j</span><span class="l" style="--i:16">u</span><span class="l" style="--i:17">s</span><span class="l" style="--i:18">t</span> <span class="l" style="--i:19">s</span><span class="l" style="--i:20">c</span><span class="l" style="--i:21">r</span><span class="l" style="--i:22">o</span><span class="l" style="--i:23">l</span><span class="l" style="--i:24">l</span><span class="l" style="--i:25">.</span></span>
       </h1>
 
       <div class="hero-grid">
@@ -430,11 +814,11 @@
               <span class="arr">→</span>
             </a>
             <span class="cta-note">A quick 30 min. Honest take on your copy, either way.</span>
+            <span class="margin-note"><span class="arrow">↖</span>worth the 30 min</span>
           </div>
         </div>
       </div>
 
-      <div class="side-label">Words that move people</div>
     </div>
   </section>
 
@@ -446,13 +830,74 @@
           <div class="section-num">01 — Selected Work</div>
           <h2 class="section-title display">Proof, not promises.</h2>
         </div>
+        <a class="browse-link" href="https://drive.google.com/drive/folders/12d2YfH56dDm4_5CkMKT6ok8QTsJh3Aqj?usp=sharing" target="_blank" rel="noopener">Browse the full portfolio →</a>
       </div>
+
+      <!-- CASE STUDY: Groundluxe -->
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <span class="case-tag">Email Marketing</span>
+            <div class="case-title">Groundluxe — Seasonal Campaign</div>
+            <div class="case-meta">DTC wellness brand · grounding products</div>
+          </div>
+        </div>
+        <div class="case-challenge"><b>Challenge:</b> a low-awareness, niche product. The copy has to educate on a benefit most readers have never heard of before it can sell anything.</div>
+        <div class="case-excerpt">
+          <div class="ex-label">Excerpt — Campaign #1</div>
+          <div class="subj">Subject: Your 2025 wellness starts here</div>
+          <div class="subj-alt">Preview: Check this "sleeping beauty" habit</div>
+          <p><strong>Your Effortless Wellness Habit for 2025</strong><br>Just sleep on it and wake up better.</p>
+          <p>Make 2025 your healthiest year with one simple habit: grounding. Grounding works automatically while you sleep, helping reduce inflammation, improve rest, and boost daily energy.</p>
+          <p>Join thousands who've already made grounding part of their wellness routine and are waking up feeling better every day.</p>
+        </div>
+      </div>
+
+      <!-- CASE STUDY: Tough Glove -->
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <span class="case-tag">Welcome Sequence</span>
+            <div class="case-title">Tough Glove — Welcome Sequence</div>
+            <div class="case-meta">UK DTC disposable gloves for tradespeople</div>
+          </div>
+        </div>
+        <div class="case-challenge"><b>Challenge:</b> a commodity product in a crowded market. Differentiation has to come from durability and specificity, not price.</div>
+        <div class="case-excerpt">
+          <div class="ex-label">Excerpt — Email 2 of 3</div>
+          <div class="subj">Subject: How Tough Glove was made</div>
+          <div class="subj-alt">Preview: One pair of gloves, no matter how long the job takes.</div>
+          <p>Every mechanic knows the frustration of having your gear rip before the job is done. Our founder was tired of watching it happen.</p>
+          <p>So he went to the factory and built Tough Glove from the ground up. From A to Z, every detail, every material, every test. Thicker nitrile, reinforced fingertips, and a diamond texture grip that keeps hold of tools even when they're slick with oil.</p>
+          <p>That's Tough Glove. Built to work straight through without stopping.</p>
+        </div>
+      </div>
+
+      <!-- CASE STUDY: Kodaline -->
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <span class="case-tag">Sales Letter</span>
+            <div class="case-title">Kodaline — "The Last Dance"</div>
+            <div class="case-meta">Music / entertainment · direct-response sales letter</div>
+          </div>
+        </div>
+        <div class="case-challenge"><b>Challenge:</b> sell a nostalgia-driven physical product (deluxe vinyl/CD) to fans in an all-streaming world — the emotional hook has to carry the entire argument.</div>
+        <div class="case-excerpt">
+          <div class="ex-label">Excerpt — Sales Letter #1</div>
+          <div class="subj">Subject: "They just announced it... Kodaline is over."</div>
+          <p>I'm writing to you at 2 AM because I couldn't sleep. I just heard the news. Our boys are calling it "disband." After more than a decade of making us cry, laugh, and feel like we weren't alone in this crazy world... Kodaline is saying goodbye.</p>
+          <p>Remember where you were when you first heard <em>"All I Want"</em>? I do. I was sitting in my car, rain beating down on the windshield, and Steve's voice came through my speakers like he was reading my diary.</p>
+          <p>And at £8.99 for the CD, it costs less than two pints at the pub. Two pints that'll be gone in an hour. Or a piece of Kodaline history you'll have forever.</p>
+        </div>
+      </div>
+
+      <div class="more-work-label">More work</div>
 
       <!-- GROUP: Welcome Sequences -->
       <div class="sample-group">
         <div class="group-label">
           <h3>Welcome <span class="ital">Sequences</span></h3>
-          <span class="group-count">Four projects</span>
         </div>
         <div class="pills">
           <a class="pill" href="https://docs.google.com/document/d/1jRYi3YMvP2yHCOuDrOEYC2JZnGYuwjw_YO0QXrQ6BKY/edit?usp=drive_link" target="_blank" rel="noopener">Tough Glove <span class="arr">→</span></a>
@@ -466,7 +911,6 @@
       <div class="sample-group">
         <div class="group-label">
           <h3>Campaigns <span class="ital">& Nurture</span></h3>
-          <span class="group-count">Two projects</span>
         </div>
         <div class="pills">
           <a class="pill" href="https://docs.google.com/document/d/12XH5pJTKx5iIv_77gAIGdiz2HCj6-Bl0FYhfcnh_9YE/edit?usp=drive_link" target="_blank" rel="noopener">Groundluxe <span class="arr">→</span></a>
@@ -478,7 +922,6 @@
       <div class="sample-group">
         <div class="group-label">
           <h3>Sales <span class="ital">Letters</span></h3>
-          <span class="group-count">One project</span>
         </div>
         <div class="pills">
           <a class="pill" href="https://docs.google.com/document/d/1h1u4aEi98BDmLZJGlfb0o7Qik0YoELa2SM38A_1kht0/edit?usp=drive_link" target="_blank" rel="noopener">Kodaline · The Last Dance <span class="arr">→</span></a>
@@ -499,7 +942,7 @@
       </div>
 
       <p class="pain-lede display">
-        Hire the wrong copywriter and you'll end up <span class="ital">doing it all yourself anyway.</span>
+        Hire the <span class="squiggly">wrong</span> copywriter and you'll end up <span class="ital">doing it all yourself anyway.</span>
       </p>
 
       <ul class="pain-list">
@@ -531,20 +974,32 @@
 
       <div class="quotes">
         <div class="quote">
+          <div class="quote-top">
+            <div class="quote-who"><span class="avatar-chip">TN</span><span class="name">Tristan N.</span></div>
+            <span class="resolved-tag">✓ Resolved</span>
+          </div>
           <p>I've briefed a lot of copywriters, and Sage is one of the few who actually reads what you send. She came back with questions that showed she understood the product, not just the deliverable. Saved us two rounds of revisions before we even started.</p>
-          <cite>Tristan N.</cite>
         </div>
         <div class="quote">
+          <div class="quote-top">
+            <div class="quote-who"><span class="avatar-chip">AT</span><span class="name">Adrian T.</span></div>
+            <span class="resolved-tag">✓ Resolved</span>
+          </div>
           <p>Working with Sage is easy in the way you don't appreciate until you've worked with someone who isn't. She replies, she asks the right questions, she flags things before they become problems.</p>
-          <cite>Adrian T.</cite>
         </div>
         <div class="quote">
+          <div class="quote-top">
+            <div class="quote-who"><span class="avatar-chip">TT</span><span class="name">Tracy T.</span></div>
+            <span class="resolved-tag">✓ Resolved</span>
+          </div>
           <p>Sage catches things I miss. A product name I was using inconsistently across pages. A CTA that didn't match the offer. Small stuff that other writers ignore but actually moves the needle.</p>
-          <cite>Tracy T.</cite>
         </div>
         <div class="quote">
+          <div class="quote-top">
+            <div class="quote-who"><span class="avatar-chip">NH</span><span class="name">Norris H.</span></div>
+            <span class="resolved-tag">✓ Resolved</span>
+          </div>
           <p>Fast without being sloppy. Sage turned around a full email sequence in the time most freelancers take to send me a kickoff doc. And the draft needed barely any changes.</p>
-          <cite>Norris H.</cite>
         </div>
       </div>
     </div>
@@ -561,9 +1016,37 @@
       </div>
 
       <div class="about-grid">
-        <h3 class="about-heading display">
-          A copywriter who <span class="ital">understood people</span> before learning to write.
-        </h3>
+        <div>
+          <h3 class="about-heading display">
+            A copywriter who <span class="ital">understood people</span> before learning to write.
+            <span class="margin-note" style="display:block;font-size:17px;margin-top:14px"><span class="arrow">↴</span>true, keep this</span>
+          </h3>
+
+          <div class="about-side">
+            <div class="stat-card">
+              <div class="stat-num">60%</div>
+              <div class="stat-label">of monthly new-client acquisition driven by content &amp; campaigns I led at WeeLAB / Wee Love Skin</div>
+            </div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-when">2018–2023</div>
+                <div class="tl-what"><strong>B.A. English Language &amp; Literature</strong><span>Thang Long University</span></div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-when">2022–2024</div>
+                <div class="tl-what"><strong>Customer Service</strong><span>MindX Technology School</span></div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-when">2023–2025</div>
+                <div class="tl-what"><strong>Spa Manager</strong><span>WeeLAB / Wee Love Skin — operations &amp; marketing</span></div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-when">2024–Present</div>
+                <div class="tl-what"><strong>Copywriting Training</strong><span>Studious Copywriting School</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="about-body">
           <p>For three years before I started writing copy, I was on the other side of the counter. Managing a spa, handling customer service, talking to real people about real problems they wanted solved.</p>
@@ -578,11 +1061,51 @@
     </div>
   </section>
 
+  <!-- SKILLS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-num">05 — Process</div>
+          <h2 class="section-title display">Strategy first. Then <span class="ital">Abracadabra!</span></h2>
+        </div>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="process-num">/01</div>
+          <h3 class="process-title">Strategize</h3>
+          <p class="process-desc">Audience, positioning, competitor gaps. Decide what actually needs to be said before writing a single line.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">/02</div>
+          <h3 class="process-title">Plan the Channel</h3>
+          <p class="process-desc">Email, ads, landing page, organic. Map what content actually needs.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">/03</div>
+          <h3 class="process-title">Write</h3>
+          <p class="process-desc">Draft the real copy: subject lines, hooks, body, CTAs.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">/04</div>
+          <h3 class="process-title">Proofread</h3>
+          <p class="process-desc">Every line checked against the brief, the brand voice, and plain readability.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">/05</div>
+          <h3 class="process-title">Publish</h3>
+          <p class="process-desc">Launch it, track what the numbers say, and get into the next round.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CLOSING -->
-  <section class="closing">
+  <section class="closing" id="contact">
     <div class="wrap">
       <div class="eyebrow" style="justify-content:center;display:flex">Ready when you are</div>
-      <h2 class="display">So, <span class="ital">shall we </span> start business?</h2>
+      <h2 class="display">Shall we <span class="start-highlight">start</span> business?</h2>
       <p class="sub">One project. A short brief. See the work before you commit to anything bigger.</p>
       <a href="https://calendly.com/copywithsage/30min" class="cta" target="_blank" rel="noopener">
         Book a call
@@ -595,10 +1118,10 @@
 
 <footer>
   <div class="wrap">
+    <div class="status-bar"><span class="rec-dot"></span>Suggesting mode · All changes saved to Drive · Last edited just now by Sage Nguyen</div>
     <div class="foot-row">
       <div>
         <div class="foot-mark">Sage<span class="dot">.</span></div>
-        <div class="foot-fine">Freelance copywriter · Available for agency work and direct clients</div>
       </div>
       <div class="foot-links">
         <a href="https://www.linkedin.com/in/sage-nguyen-copywriter/" target="_blank" rel="noopener">LinkedIn</a>
@@ -606,9 +1129,53 @@
         <a href="https://calendly.com/copywithsage/30min" target="_blank" rel="noopener">Book A Call</a>
       </div>
     </div>
-    <div class="foot-fine" style="margin-top:24px">© 2026 Sage Nguyễn. Words that move people.</div>
+    <div class="foot-fine" style="margin-top:24px">© 2026 Sage Nguyen. Words that move people.</div>
   </div>
 </footer>
+
+<nav class="folder-nav" aria-label="Section navigation">
+  <a class="folder-tab" href="#work"><span class="flap"></span><span class="label">Work</span></a>
+  <a class="folder-tab" href="#words"><span class="flap"></span><span class="label">Words</span></a>
+  <a class="folder-tab" href="#about"><span class="flap"></span><span class="label">About</span></a>
+  <a class="folder-tab" href="#process"><span class="flap"></span><span class="label">Process</span></a>
+  <a class="folder-tab" href="#contact"><span class="flap"></span><span class="label">Contact</span></a>
+</nav>
+
+<script>
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.folder-tab'));
+    var sections = tabs.map(function(t){ return document.querySelector(t.getAttribute('href')); });
+
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          var idx = sections.indexOf(entry.target);
+          if(idx === -1) return;
+          if(entry.isIntersecting){
+            tabs.forEach(function(t){ t.classList.remove('active'); });
+            tabs[idx].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+      sections.forEach(function(s){ if(s) io.observe(s); });
+    }
+  })();
+
+  // headline letter-jump: tap/touch equivalent for mobile (no hover there)
+  (function(){
+    var h1 = document.querySelector('h1.headline.redline');
+    if(!h1) return;
+    var timer;
+    h1.addEventListener('touchstart', function(){
+      h1.classList.remove('jump-active');
+      void h1.offsetWidth; // force reflow so the animation restarts on repeat taps
+      h1.classList.add('jump-active');
+      clearTimeout(timer);
+      timer = setTimeout(function(){ h1.classList.remove('jump-active'); }, 1500);
+    }, { passive: true });
+  })();
+</script>
 
 </body>
 </html>
